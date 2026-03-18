@@ -79,12 +79,19 @@ ifneq "$(NROFFISGROFF)" "0"
 GROFFMINORVERSION := $(shell printf '.tm \\n[.y]\n' | $(NROFF) 2>&1)
 #$(info GROFFMINORVERSION=$(GROFFMINORVERSION))
 # Silence warnings produced by tmac.n, which NetHack does not modify.
-NROFF_FLAGS := -wall -Wrange -Wscale -Wtab
-# groff <= 1.23 also supported an "el" warning category that was buggy.
+NROFF_FLAGS := -ww -Wmac -Wrange -Wreg -Wscale -Wtab
+# Use the US-ASCII character encoding (not ISO Latin-1 or UTF-8).
+NROFF_FLAGS += -Tascii
 GROFFLE123 := $(shell expr $(GROFFMINORVERSION) \<= 23)
 #$(info GROFFLE123=$(GROFFLE123))
 ifeq "$(GROFFLE123)" "1"
-NROFF_FLAGS += -Wel
+# Produce Teletype Model 37-compatible text output (with
+# backspace-overstriking but no SGR).  groff <= 1.23 supported an
+# "el" warning category that was buggy.
+NROFF_FLAGS += -c -Wel
+else
+# Produce plain text output (no backspace-overstriking, no SGR).
+NROFF_FLAGS += -P -cbou
 endif  # end groff less than 1.23
 endif  # end NROFFISGROFF
 # $(info NROFF_FLAGS=$(NROFF_FLAGS))
