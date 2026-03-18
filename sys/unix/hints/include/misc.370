@@ -94,7 +94,7 @@ ifneq "$(NROFFISGROFF)" ""   # It's groff
 MAN2TXTPRE += -Tascii
 # nroff in groff 1.23 supports the -P option to pass arguments to the
 # output driver.  -cbou are flags to grotty(1).
-GROFFGE123 := $(shell expr $(GROFFMINORVERSION) \>= 23)
+GROFFGE123 := $(shell test -n "$(GROFFMINORVERSION)" && expr $(GROFFMINORVERSION) \>= 23)
 #$(info GROFFGE123=$(GROFFGE123))
 ifeq "$(GROFFGE123)" "1"
 MAN2TXTPRE += -P -cbou
