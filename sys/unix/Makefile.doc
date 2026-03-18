@@ -30,7 +30,7 @@ COLCMD ?= col -bx
 # Generate a PostScript file from *roff source.
 # TROFF2PS = ditroff | psdit
 # TROFF2PS = troff | dpost
-TROFF2PS = groff
+TROFF2PS = groff -T ps
 
 # Use the "cat" GUIDECMD if nroff and/or tbl and/or col are not installed
 # Not appropriate for creating Guidebook.txt.
