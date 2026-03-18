@@ -70,13 +70,13 @@ NROFF = mandoc
 MAN2TXTPRE = -T ascii
 MAN2TXTPOST= | col -b
 else
-#
+NROFF = nroff
 # Detect groff.
-NROFFISGROFF := $(shell echo `nroff --version | grep -c 'GNU.*groff.*version'`)
+NROFFISGROFF := $(shell echo `$(NROFF) --version | grep -c 'GNU.*groff.*version'`)
 #$(info NROFFISGROFF=$(NROFFISGROFF))
 ifneq "$(NROFFISGROFF)" "0"
 # Gather groff's minor version number (register `.y`).
-GROFFMINORVERSION := $(shell printf '.tm \\n[.y]\n' | nroff 2>&1)
+GROFFMINORVERSION := $(shell printf '.tm \\n[.y]\n' | $(NROFF) 2>&1)
 #$(info GROFFMINORVERSION=$(GROFFMINORVERSION))
 # Silence warnings produced by tmac.n, which NetHack does not modify.
 NROFF_FLAGS := -wall -Wrange -Wscale -Wtab

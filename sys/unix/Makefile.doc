@@ -36,10 +36,10 @@ PSCMD = groff
 # GUIDECMD = cat Guidebook.txt
 #
 # Single page. Might need adjustment to .pl value
-# GUIDECMD= $(GUIDE_PREFORMAT) | perl -pe 's/^(.mt)$$/.pl 4720v\n.in 0\n.po 8\n.ll 64m\n$$1/' | nroff -c -Tascii | $(COLCMD)
+# GUIDECMD= $(GUIDE_PREFORMAT) | perl -pe 's/^(.mt)$$/.pl 4720v\n.in 0\n.po 8\n.ll 64m\n$$1/' | $(NROFF) -c -Tascii | $(COLCMD)
 #
-GUIDECMD = $(GUIDE_PREFORMAT) | nroff -c -Tascii $(NROFF_FLAGS) | $(COLCMD)
-ONEPAGECMD = $(ONEPAGE_PREFORMAT) | nroff -c -Tascii $(NROFF_FLAGS) | $(COLCMD)
+GUIDECMD = $(GUIDE_PREFORMAT) | $(NROFF) -c -Tascii $(NROFF_FLAGS) | $(COLCMD)
+ONEPAGECMD = $(ONEPAGE_PREFORMAT) | $(NROFF) -c -Tascii $(NROFF_FLAGS) | $(COLCMD)
 
 # Only generate output for the current configuration:
 NHGREP = $(MAKEDEFS) --grep --input - --output -
@@ -99,10 +99,10 @@ RCVRMANCREATE = cat recover.6 | $(NHGREP) >
 DLBMANCREATE = cat dlb.6 | $(NHGREP) >
 MDMANCREATE = cat makedefs.6 | $(NHGREP) >
 # manual installation for most SYSV-style systems
-# GAMEMANCREATE = cat nethack.6 | $(NHGREP) | nroff -man - >
-# RCVRMANCREATE = cat recover.6 | $(NHGREP) | nroff -man - >
-# DLBMANCREATE = cat dlb.6 | $(NHGREP) | nroff -man - >
-# MDMANCREATE = cat makedefs.6 | $(NHGREP) | nroff -man - >
+# GAMEMANCREATE = cat nethack.6 | $(NHGREP) | $(NROFF) -man - >
+# RCVRMANCREATE = cat recover.6 | $(NHGREP) | $(NROFF) -man - >
+# DLBMANCREATE = cat dlb.6 | $(NHGREP) | $(NROFF) -man - >
+# MDMANCREATE = cat makedefs.6 | $(NHGREP) | $(NROFF) -man - >
 
 manpages: $(PREMANPAGES)
 	-$(GAMEMANCREATE) $(MANDIR)/$(GAME).$(MANEXT)
